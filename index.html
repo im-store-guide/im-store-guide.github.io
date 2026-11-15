@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>i'm 店舗運営ガイド</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; hero with search → category rail → accordion list; contact legend aside on wide screens */
+:root{
+  --bg:#F5F4F8; --surface:#FFFFFF; --ink:#1E1C2A; --muted:#67637A; --line:#E2DFEA;
+  --accent:#53458A; --accent-ink:#FFFFFF; --accent-soft:#ECE8F7; --name:#C02A47; --mark:#FBEFB4; --warn:#B4361F; --warn-soft:#FCEEE9; --warn-line:#F2CFC4; --new:#127A5B; --new-soft:#E2F4EC;
+  --shadow:0 1px 2px rgba(30,28,42,.05),0 6px 20px rgba(30,28,42,.05);
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14131A; --surface:#1D1B26; --ink:#ECEAF3; --muted:#A39FB6; --line:#2E2B3B;
+  --accent:#B9A9F2; --accent-ink:#17151F; --accent-soft:#2A2541; --name:#FF7D90; --mark:#5A4C12; --warn:#FF9A80; --warn-soft:#2C1B18; --warn-line:#4A2A23; --new:#6FD8B0; --new-soft:#173229;
+  --shadow:none; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#14131A; --surface:#1D1B26; --ink:#ECEAF3; --muted:#A39FB6; --line:#2E2B3B;
+  --accent:#B9A9F2; --accent-ink:#17151F; --accent-soft:#2A2541; --name:#FF7D90; --mark:#5A4C12; --warn:#FF9A80; --warn-soft:#2C1B18; --warn-line:#4A2A23; --new:#6FD8B0; --new-soft:#173229;
+  --shadow:none; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:10px;font-weight:900;font-size:20px;letter-spacing:.01em}
+.brand small{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.top .src{font-size:12px;color:var(--muted)}
+.hero{padding-block:40px 18px;display:grid;gap:14px;max-width:760px}
+@media (max-width:640px){.hero{padding-block:18px 10px;gap:8px}.hero .eyebrow{display:none}.lead{font-size:13.5px;line-height:1.65}header.top{padding-block:12px}.top .src{display:none}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 8px;display:grid;gap:10px;border-bottom:1px solid transparent}
+.controls.stuck{border-bottom-color:var(--line)}
+.rail{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+.rail::-webkit-scrollbar{display:none}
+.rail .cat{flex:none}
+.hint{font-size:12px;color:var(--muted)}
+.urgent{background:var(--warn-soft);border:1px solid var(--warn-line);border-radius:14px;padding:14px;margin-bottom:24px;display:grid;gap:10px}
+.urgent .uh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.urgent h3{margin:0;font-size:16px;color:var(--warn)}
+.urgent .uh span{font-size:12px;color:var(--muted)}
+.ugrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:640px){.ugrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ubtn{font:inherit;font-size:13.5px;font-weight:700;text-align:left;cursor:pointer;background:var(--surface);color:var(--ink);border:1px solid var(--warn-line);border-radius:10px;padding:10px 12px;line-height:1.45;min-width:0}
+.ubtn[aria-pressed="true"]{background:var(--warn);border-color:var(--warn);color:var(--surface)}
+.urgent details.qa{border-color:var(--warn-line)}
+.badge{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;border-radius:5px;padding:0 6px;margin-right:6px;vertical-align:1px}
+.badge.new{background:var(--new-soft);color:var(--new)}
+.badge.upd{background:var(--accent-soft);color:var(--accent)}
+.newsbtn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;font:inherit;text-align:left;cursor:pointer;background:var(--new-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--new) 30%,transparent);border-radius:12px;padding:12px 15px;margin-bottom:24px}
+.newsbtn b{color:var(--new)}
+.newsbtn span{font-size:12.5px;color:var(--muted)}
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:6px;border-top:1px dashed var(--line)}
+.share button{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:8px;padding:4px 11px;cursor:pointer}
+.share input{flex:1 1 220px;min-width:0;font:inherit;font-size:12px;border:1px solid var(--line);border-radius:7px;padding:4px 8px;background:var(--bg);color:var(--ink)}
+.share small{font-size:12px;color:var(--muted)}
+details.qa.flash{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
+details.qa{scroll-margin-top:170px}
+.fb{display:grid;gap:8px;background:var(--bg);border-radius:10px;padding:10px 12px}
+.fb .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px}
+.fb .row>span{color:var(--muted)}
+.fb button,.req button{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 11px;cursor:pointer}
+.fb button.pri,.req button.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.fb textarea,.req textarea{width:100%;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);color:var(--ink);resize:vertical;min-height:64px}
+.fb .msg,.req .msg{font-size:12.5px;color:var(--new)}
+.fb .alt,.req .alt{font-size:12.5px;color:var(--muted);display:grid;gap:6px}
+.fb .alt pre,.req .alt pre{margin:0;white-space:pre-wrap;font:inherit;font-size:12.5px;background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:8px 10px;color:var(--ink)}
+.req{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px;margin-top:24px}
+.req h3{margin:0;font-size:15.5px}
+.fbbtn{display:inline-block;font-size:12.5px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:8px;padding:4px 11px;font-weight:700}
+.fbbtn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-size:13.5px;padding:8px 14px}
+.req p{margin:0;font-size:13px;color:var(--muted)}
+.inbox .sum{display:flex;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.inbox .sum b{color:var(--ink);font-family:var(--f-mono)}
+.inbox ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:420px;overflow:auto}
+.inbox li{border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px;display:grid;gap:3px}
+.inbox li .k{font-size:11px;color:var(--muted)}
+.inbox li button{justify-self:start;font:inherit;font-size:11.5px;border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:1px 8px;cursor:pointer}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;display:none}
+.lead .sp{display:none}
+@media (max-width:640px){h1{font-size:26px}.lead .pc{display:none}.lead .sp{display:inline}
+.terms{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.terms::-webkit-scrollbar{display:none}.terms>*{flex:none}}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;color:var(--accent)}
+h1{font-size:clamp(30px,5.4vw,46px);line-height:1.2;margin:0;font-weight:900;text-wrap:balance;letter-spacing:.01em}
+.lead{margin:0;color:var(--muted);max-width:40em}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:13px 48px 13px 46px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.search input:focus{outline:none;border-color:var(--accent)}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--muted)}
+.search .clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:var(--accent-soft);color:var(--accent);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;line-height:1}
+.terms{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.terms span{font-size:12px;color:var(--muted);margin-right:2px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:28px}
+.tile{font:inherit;text-align:left;cursor:pointer;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 15px;display:grid;gap:4px;min-width:0}
+.tile:hover{border-color:var(--accent)}
+.tile b{font-size:15px}
+.tile .n{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.tile small{font-size:12px;color:var(--muted);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+@media (max-width:640px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{padding:11px 12px}.tile small{display:none}}
+.allbtn{font:inherit;font-size:13.5px;font-weight:700;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:10px;padding:9px 16px;cursor:pointer;margin-top:4px}
+.sub{font-size:16px;margin:0 0 10px;font-weight:700}
+.to{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px}
+.to .lbl{color:var(--muted)}
+.to .ch{background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:1px 8px;font-weight:500}
+.to .who{border:1px solid color-mix(in srgb,var(--name) 40%,transparent);color:var(--name);border-radius:6px;padding:0 7px;font-weight:700}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;align-items:start;padding-bottom:48px}
+@media (max-width:880px){.layout{grid-template-columns:minmax(0,1fr)}}
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+h2{font-size:18px;margin:0;font-weight:700}
+.count{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.count b{color:var(--ink);font-size:15px}
+.cat{font:inherit;font-size:13.5px;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 13px;border-radius:10px;cursor:pointer}
+.cat i{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cat[aria-pressed="true"] i{color:var(--accent-ink);opacity:.8}
+.group{margin-bottom:26px}
+.ghead{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.ghead h3{margin:0;font-size:16px}
+.ghead span{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.list{display:grid;gap:8px}
+details.qa{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.qa[open]{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+summary{list-style:none;cursor:pointer;padding:13px 16px 13px 46px;position:relative;display:grid;gap:3px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"Q";position:absolute;left:14px;top:13px;width:22px;height:22px;border-radius:7px;background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-size:12px;display:grid;place-items:center;line-height:1}
+summary::after{content:"";position:absolute;right:16px;top:20px;width:8px;height:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
+details[open] summary::after{transform:rotate(-135deg);top:24px}
+.meta{font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.q{font-weight:700;padding-right:22px;line-height:1.6}
+.ans{padding:2px 18px 16px 46px;display:grid;gap:8px;min-width:0}
+.ans p{margin:0}
+.ans ul{margin:0;padding-left:1.2em}
+.ans a{word-break:break-all}
+.name{color:var(--name);font-weight:700}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
+.tpl{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:14px;display:grid;gap:6px}
+.tpl button{justify-self:start;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:7px;padding:3px 10px;cursor:pointer}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--muted)}
+aside{display:grid;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 150px)}
+@media (max-width:880px){aside{position:static}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h4{margin:0 0 8px;font-size:14.5px}
+.card p{margin:0;font-size:13.5px;color:var(--muted)}
+.contacts{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:13.5px}
+.contacts li{display:grid;grid-template-columns:4.2em 1fr;gap:8px}
+.contacts .name{white-space:nowrap}
+.contacts span:last-child{color:var(--muted)}
+.btnlink{display:inline-block;margin-top:12px;font-size:13px;font-weight:700;text-decoration:none;color:var(--accent-ink);background:var(--accent);padding:8px 14px;border-radius:9px}
+.tools{display:flex;gap:8px}
+.tools button{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;padding:4px 10px;cursor:pointer}
+footer{border-top:1px solid var(--line);padding-block:26px 34px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer b{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">i'm <small>STORE GUIDE</small></div>
+    <div class="src">店舗運営FAQ（Notion）をもとに作成</div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">I'M GROUP / STORE KNOWLEDGE BASE</div>
+    <h1>店舗運営ガイド</h1>
+    <p class="lead"><span class="pc">わからないことや困ったことがあれば、まずはここで検索してみましょう。解決しない場合は、面談ノート・店舗ノートでマネージャーへご相談ください。</span><span class="sp">まずはここで検索。解決しないときはマネージャーへ。</span></p>
+    <div class="terms" id="terms"><span>よく使う言葉</span></div>
+  </section>
+
+  <div class="controls" id="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="例：有休、ドタキャン、エアコン、交通費" autocomplete="off" aria-label="ガイドを検索">
+      <button class="clear" id="clear" type="button" aria-label="検索をクリア" hidden>×</button>
+    </div>
+    <div class="rail" id="cats" role="group" aria-label="カテゴリ"></div>
+  </div>
+
+  <div class="layout">
+    <main>
+      <div class="bar">
+        <h2 id="heading">困りごとから探す</h2>
+        <div class="tools">
+          <span class="count" id="count"></span>
+        </div>
+      </div>
+      <div id="list"></div>
+    </main>
+    <aside>
+      <div class="card">
+        <h4>主な問い合わせ先</h4>
+        <ul class="contacts">
+          <li><span class="name">菅野</span><span>店舗設備・管理会社・届いた書類</span></li>
+          <li><span class="name">吉田</span><span>システム・交通費・給与・労務手続き</span></li>
+          <li><span class="name">秋永</span><span>社会保険・HRBrainの実績・口座変更</span></li>
+          <li><span class="name">古林</span><span>ミニモ・経験者の再来担当</span></li>
+          <li><span class="name">小笠原</span><span>研修・まつ毛パーマ・店販商品</span></li>
+          <li><span class="name">横山</span><span>社員紹介制度</span></li>
+          <li><span class="name">菊地</span><span>発注</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>原本（Notion）</h4>
+        <p>このガイドは Notion の「店舗運営FAQ」をもとに作成しています。最新の内容や画像は原本で確認できます。</p>
+        <a class="btnlink" href="https://app.notion.com/p/35be913c15838128b2bdf9c7941f8438" target="_blank" rel="noopener">店舗運営FAQを開く</a>
+      </div>
+      <div class="card">
+        <h4>連絡先の使い分け</h4>
+        <p><b>店舗ノート</b>：店舗の業務・設備・システムのこと<br><b>面談ノート</b>：勤怠・給与・人事など自分自身のこと<br><b>発注ノート</b>：備品の発注・領収書</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div><b>i'm 店舗運営ガイド</b>　わからないときは、まずここで。</div>
+    <div>内容は 2026/11/12 時点</div>
+  </footer>
+</div>
+
+<script type="text/plain" id="data">
+# 勤怠
+## 半休
+Q* 半日休暇（午前・午後休暇）に関するルールや手続きを教えてください
+半日休暇を希望する場合は、スマレジから申請後、店舗ノートで報告してください。
+**【午前休】** 休憩有：早番 10時～15時／遅番 11時～16時　休憩無：早番 10時～14時／遅番 11時～15時
+**【午後休】** 休憩有：早番 15時～19時／遅番 16時～20時　休憩無：早番 14時～19時／遅番 15時～20時
+Q+ 有給・半休の申請を間違えた／変更・取り消ししたい
+面談ノートでご連絡ください。スマレジの申請を一度却下しますので、再申請をお願いします。なお、シフト確定後の休日変更は原則受け付けていません。
+## 早退
+Q* 早退したいです
+① お客様のキャンセル対応が必要であれば、その後のお客様にキャンセルのご連絡をしてください。
+② 退勤時刻が確定したら店舗ノートに報告してください。
+③ 退勤でき次第、Googleフォームのスクショを店舗ノートで報告お願いします。
+Q+ 台風・大雨などの災害で休んだ／早退した場合はどうなりますか
+悪天候・災害で休む／早退する場合は欠勤扱いになります。有給にしたい場合はスマレジで申請してください（全日有給／半休＋欠勤／早退分のみ欠勤 のいずれか）。欠勤の場合はGoogleフォームを入力し、スクショを店舗ノートで共有してください。
+## 残業
+Q 残業（時間外労働）に関するルールや手続きを教えてください
+月15時間は見なし残業が含まれていますが、残業をする場合は事前に店舗ノートにてマネージャー承認を得るようにしてください。
+Q+ 残業した分を別の日に振り替えられますか
+給与に残業代が含まれているため、原則として振替は行っていません。
+## シフト
+Q 希望休申請方法
+期日までにシート内に希望休を入力お願いします。
+① Googleスプレッドシートアプリをダウンロード
+② シフト申請シートのリンクをクリック
+③ 右下の「：」マークから「ブラウザで開く」を選択
+④ 右上の「‥」マークをクリック→「検索と置換」をクリック
+⑤ タブにご自身の名前を入れる
+⑥ 希望休を提出したい日に「希休」と入れて、セルの色をオレンジに変更
+※日曜日～土曜日までが1週間になり、週休2日以上の申請は特別休暇以外はNGです。
+Q* シフトの変更は可能でしょうか
+希望の変更内容を面談ノートでご連絡ください。
+週休2日（平日）の範囲内であれば、休みと出勤日の入れ替えも可能です。シフト確定後の変更は原則不可です。
+Q+ シフトとサロンボードの勤務時間が違います
+店舗ノートでマネージャーにご連絡ください。担当が修正します。
+## 休憩
+Q 休憩時間について教えてください
+以下のルールに従って休憩時間を押さえて下さい。
+① 当日15時までの空き時間が30分未満の場合 → 休憩30分×2 or 60分ブロック
+② 当日15時までの空き時間が30分以上60分未満の場合 → 休憩30分ブロック
+③ 当日15時までの空き時間が60分以上の場合 → 休憩ブロックなし
+※休憩ブロックは予約と続けてください。
+## 体調不良
+Q スタッフの体調不良での欠勤時の対応について教えてください
+店舗ノートに連絡の上、出勤する他スタッフへお客様へのキャンセル連絡を依頼してください。
+※欠勤連絡はなるべく前日の夜、遅くても朝8時までにしてください。
+Q+ コロナ・インフルエンザで休む場合は有給になりますか
+風邪と同じ扱いで欠勤になります（診断書は不要）。有給を使いたい場合はスマレジで申請してください。
+## 遅刻
+Q 遅刻しそうな時はどうしたらいいですか
+遅刻が分かった時点で店舗ノートで報告し、Googleフォームの入力をお願いします。
+Q+ 電車遅延・台風・地震などで遅刻しそう／出勤が難しい時はどうしたらいいですか
+安全を最優先に判断し、出勤が難しい場合は無理をせず店舗ノートで報告してください。遅刻した場合は出勤後にGoogleフォームで遅刻申請をお願いします。
+## 打刻
+Q+ 打刻を忘れた・間違えた場合はどうしたらいいですか
+スマレジの勤怠修正申請から修正してください（スマレジのヘルプ「勤怠（打刻）の修正を申請・承認する」参照）。スマレジに未登録の場合は面談ノートでご連絡ください。
+
+# 人事・労務
+## 社員紹介
+Q 社員紹介制度はありますか
+リファラル採用の条件：紹介した方が3ヶ月勤務した場合、3万円ずつ支払い（半年以上経験者は5万円ずつ）
+紹介したい場合は、人事の横山までご連絡お願いします。
+## 有給
+Q 有給休暇の残日数を確認する方法を教えてください
+ご自身のアカウントでスマレジから確認をお願いいたします。
+https://accounts.smaregi.jp/login?client_id=timecard
+Q 有休付与の条件を教えてください
+「雇入れの日から6か月継続勤務」かつ「全労働日の8割以上出勤」が条件です。
+Q 有給はいつから取れますか
+入社日から半年後から取得できます。
+## 給与
+Q 給与明細の確認方法を教えてください
+マネーフォワードにログインしていただきご確認をお願いします。
+Q 給与の支払いルールを教えてください
+毎月20日が給与支払日となります。20日が土日祝日の場合は前倒しされます。
+Q+ スマレジ・マネーフォワード・HRBrainにログインできません
+スマレジ・マネーフォワードは吉田から招待メールをお送りしています。届いていない場合は面談ノートでご連絡ください。HRBrainはログイン画面の「パスワード再設定」から再設定してください。
+Q インセンティブの計算方法を教えてください
+**インセンティブ対象売上 ＝ ①ホットペッパー会計処理金額 ＋ ②楽天ビューティーポイント － ③店販売上 － ④指名料**
+① サロンボード：[予約管理]→[予約一覧]→来店日を対象月に設定し「会計済み」にチェック→スタッフを自分に設定して検索→CSV出力。CSVの「会計時合計金額」の合計を使用します。
+② 楽天ビューティー管理画面：[予約管理]→[予約一覧]→来店日を対象月に設定し「来店確定」にチェック→スタッフを自分にして検索→「ポイント」の合計金額を使用します。
+③ サロンボード：[集計分析]→[店販月別集計]→「表示内容」を「売上」に設定し、記載されている金額を使用します。
+④ サロンボード：[予約管理]→[予約一覧]→来店日を対象月・「会計済み」・スタッフを自分にして検索→指名料の件数または金額を確認し、対象額を差し引きます。
+※Excelアプリをダウンロードしておくと携帯でもスムーズに確認できます。
+Q+ ポイント払いで割引になった場合も個人売上に含まれますか
+はい、含まれます。
+Q+ 給与・インセンティブ・交通費の金額が違う気がします
+面談ノートで吉田までご確認ください。計算の内訳をお伝えします。
+Q+ 給与の振込口座を変更したいです
+面談ノートで秋永・吉田まで、銀行名・支店名・口座種類・口座番号・口座名義（フリガナ）をお知らせください。
+Q+ HRBrainの実績（口コミ件数など）はどう集計されますか
+HRBrainの数字はサロンボードから反映されます。口コミ件数はホットペッパーの口コミのうち、月初時点で「スタッフ名の記載あり・投稿日が該当月」のものをカウントします（返信文にもスタッフ名を記載してください）。カウント時点で反映されていない口コミは後から追加しません。
+Q+ HRBrainの実績がサロンボードの数字と違います
+HRBrainの数字はサロンボードから反映されます。ホットペッパーの集計分析は友人割などが反映されないため、予約一覧→会計済みでCSV出力した数字が正しい数字です。差異がある場合は面談ノートで秋永まで、月と件数をお伝えください。
+Q+ キャンセル料は個人売上に入りますか
+リファンドハブのキャンセル料は売上に反映されず、補填もありません。
+Q+ クーポンの値引き分は個人売上に補填されますか
+サロリザ（LINE）のクーポンは会社負担です。1000円オフクーポンは売上補填があります（会計時に割引を選択してください）。
+## 健康診断
+Q 健康診断の受診方法を教えてください
+毎年1/15～2/14の閑散期1ヶ月の間に実施。予約は「平日の午前中」で取り、当日は13時に出社してください。会社負担は12,000円までです。
+健康診断の種類は、一般健康診断または法定健康診断と予約時に伝えてください。病院はご自身で予約の上、受診ください。
+検査内容（11項目）：既往歴及び業務歴の調査／自覚症状及び他覚症状の有無の検査／身長・体重・腹囲・視力及び聴力の検査／胸部エックス線検査／血圧の測定／貧血検査／肝機能検査／血中脂質検査／血糖検査／尿検査／心電図検査
+## 労災
+Q 通勤中や勤務中にケガをした場合の手続きを教えてください
+面談ノートにてご連絡ください。
+## 特別休暇
+Q 誕生日休暇はいつ取れますか
+入社次第お取りいただけます。誕生月であれば土日祝含めいつでも取得可能です。
+Q+ 夏季休暇はありますか
+7〜9月の間に3日取得できます（有給とは別に付与）。
+Q 慶弔休暇に関するルールや手続きを教えてください
+・本人結婚…5日
+・配偶者・子・父母の死亡…5日
+・兄弟姉妹・祖父母・配偶者の父母・兄弟姉妹の死亡…1日
+## 異動・勤務形態
+Q+ 異動・転勤を希望したいです
+面談ノートでマネージャーにご相談ください。人事MTGで検討します。転居が理由の場合は、住所が決まり次第、近隣の店舗をご案内します（希望店舗の人員が足りている場合は異動できないことがあります）。
+Q+ アルバイト⇔正社員の切り替えはできますか
+希望の日数・時間を面談ノートで人事にご相談ください。勤務形態が変わる場合は労働条件通知書を再締結します。
+## 資格・副業
+Q+ 管理美容師などの資格取得の支援はありますか
+管理美容師講習への応募は可能で、証明者欄は本部が記入します。講習の交通費は定期範囲外の往復分を申請してください。
+Q+ 副業はできますか
+同業は不可です。本業に支障が出ないことが条件です。勤務先名・URL・勤務時間・週の日数を面談ノートで共有し、人事の承認を得てください。
+## 退職
+Q* 退職手続きを教えてください
+退職を希望する場合は、面談ノートで人事担当までご連絡ください。
+保険証は指定の住所へ返送してください。源泉徴収票は最終給与の確定後に送付します。離職票など必要な書類は面談ノートで吉田までご連絡ください。
+## 年末調整
+Q 年末調整の手続きを教えてください
+毎年11月ごろに年末調整のご連絡をいたしますので、前職の源泉徴収票は大切に保管ください。
+Q+ 住民税を給与天引きにしたいです
+入社の翌年度から特別徴収（給与天引き）に切り替わります（年末調整をした翌年分から）。それまでは自宅に届く納付書でお支払いください。
+## 証明書の発行
+Q+ 在籍証明書・収入証明書などを発行してもらえますか
+面談ノートで吉田までご依頼ください。
+Q+ 扶養などの手続きで雇用契約書（労働条件通知書）が必要です
+面談ノートで秋永・吉田までご依頼ください。
+Q+ 資格証明書を再発行できますか
+保険証の再発行はできません（マイナ保険証へ移行）。資格証明書は面談ノートで吉田までご依頼ください。
+## 再就職・復職
+Q 復職の手続きを教えてください
+面談ノートで人事担当までご連絡ください。
+## マイナンバー
+Q マイナンバーの手続きを教えてください
+ご自身で申請が必要です。こちらのサイトを参考に、申請をお願いいたします。
+https://www.kojinbango-card.go.jp/apprec/apply/
+## 社会保険
+Q 社会保険の加入条件を教えてください
+面談ノートで秋永、吉田までご連絡ください。
+Q+ 傷病手当金を申請したいです
+申請はご本人で行っていただき、会社の記入欄は吉田が対応します。休業期間が終わったら面談ノートで吉田までご依頼ください。詳細は協会けんぽにご確認ください。
+Q+ 健康保険証が届きません
+保険証の新規発行は終了しており、マイナ保険証をご利用いただきます（マイナポータルで利用申請してください）。
+## 産休・育休
+Q+ 産休・育休の手続きを教えてください
+国の制度に基づいて対応します。面談ノートで吉田まで、出産予定日・産休開始日をご連絡ください。必要な書類・情報は吉田からご案内します。
+Q+ 保育園用の就労証明書を書いてほしいです
+吉田が作成します。面談ノートでご依頼ください。押印が必要な場合は郵送するので、最新の住所をお伝えください。
+## 居住地・氏名変更
+Q 引越しに伴い、住所変更をしたいです
+面談ノートに以下をお送りください。
+① いつから変更するか ② 新しい住所（郵便番号含む） ③ 最寄り駅 ④ 通勤ルート
+株式会社WIZの場合、HRBrainに登録いただいている住所の変更もお願いします。
+Q 結婚などに伴う、氏名変更について
+氏名変更の場合は、書類の提出などは必要ありません。面談ノートにて以下の情報を秋永、吉田までご連絡ください。
+・新姓（フリガナ）
+・口座変更の有無
+・口座変更の場合は口座名義や詳細
+現時点で口座は変更せず、今後変更がある場合は、変更完了後に口座変更の旨をご連絡ください。
+
+# 経費
+## 経費申請方法
+Q 経費精算時の領収書の添付方法を教えてください
+各スタッフがそれぞれの店舗の【発注】トークノートでアルバムに領収書を格納してください（タイトルに該当月、該当スタッフ名を記載）。
+領収書の格納をもって経費申請となるので、領収書の格納は必須です。
+Q 領収書の宛名のルールを教えてください
+領収書の宛名は『株式会社WIZ』『株式会社サウザンズ』『株式会社burn』と記載ください。
+Q 経費申請を削除・修正する方法を教えてください
+5月から申請シートへの記載はなくなり、スタッフは領収書の格納のみになったため、削除・修正の記載は不要です。
+Q 経費精算の申請期限を過ぎてしまった場合の対処方法を教えてください
+面談ノートでご連絡ください。締め切り厳守になります。
+Q 個人的な私物を誤って購入してしまった場合はどう対応したらよいですか
+発注トークノートで領収書を格納する際に正しい経費対象分の金額を記載し、面談ノートにも私物分の金額と合わせて報告し、返金をお願いします。
+例）私物購入報告　・支払金額：　・経費対象金額：　・返金金額：
+## 小口現金
+Q 経費費用（小口現金）が1万円では足りなくなった場合はどうしたらいいですか
+追加で1万円をレジ金から経費費用として足してください。
+※その際は必ず入金の際に報告お願いします。
+Q 経費費用（小口現金）1万円が余ったらどうしたらいいですか
+翌月に繰越して使用をお願いします。
+Q+ 備品を小口現金で買ってもいいですか
+発注できるものは月次発注で依頼してください。急ぎで足りないものは小口現金で購入してOKです。
+Q 領収書をもらい忘れてしまいました
+レシートがあれば経費申請できます。レシートも領収書もない場合は、面談ノートで報告お願いします。
+Q+ 公共料金などの請求は小口現金から払っていいですか
+初月の水道料金など、店舗に届いた請求は小口現金で支払ってください。
+## 交通費
+Q+ 交通費の申請方法を教えてください
+乗換案内など金額がわかるスクショを添えて、面談ノートで吉田まで申請してください。研修・講習で定期範囲外の交通費がかかった場合は、往復の金額を添えて申請してください。
+Q+ 電車遅延で別ルートを使った場合の交通費は出ますか
+別ルートの交通費は、その月の給与に加算して支給します。面談ノートで吉田まで金額をご連絡ください。
+タクシーはNGになります。
+## 異動
+Q* 異動・引越し・値上がりで定期代が変わった場合はどうしたら良いですか
+変更時期と、定期代・経路がわかるスクショ（乗換案内など）を添えて、面談ノートにて吉田にご連絡ください。
+
+# 発注・店舗購入
+## 発注
+Q 発注の締め切りを過ぎてしまいましたが、発注していいですか
+月次発注締切期日は月初＋締切日付近に広報していますので、期限内に依頼をお願いします。締切日を過ぎても対応は可能ですが、締切厳守でお願いします。
+・西日本＋サウザンズ＋burn → 毎月15日〆（15日前あたりで依頼）
+・東日本 → 毎月最終木曜日〆（最終木曜日前あたりで依頼）
+基本的には月1回のみで臨時発注をしなくて済むように、1ヶ月半～2か月分の発注をお願いします。
+Q 発注リストに記載のないものはどのように購入したらいいですか
+発注ノートからマネージャーに、商品のURL・料金・必要な理由を記載して確認してください。
+Q 一度に、どれくらいの量を発注したらいいですか
+月内で追加発注をしなくて済むよう、1ヶ月半～2か月分の発注をお願いします。
+Q ワセリン・泡洗顔をなくなる前に追加購入できますか
+使用頻度の少ない商材は劣化防止のため、原則として店舗に一つとなります。どうしても足りない場合は発注ノートでご相談ください。
+Q ワックスウォーマーが壊れた場合は、どう対応したらよいですか
+まずは予備のワックスウォーマーをご使用ください。予備がない場合は至急発注するので、発注ノートからご連絡ください。到着が間に合わない場合は一つのワックスウォーマーを2席で使用するか、店舗ノートで相談の上、近隣店舗に借りに行ってください。
+※ワックスウォーマーは必ず予備を補完するようにしてください。
+## 配送
+Q 発注したが、店舗に届いてない商品がある場合はどう対応したらよいですか
+発注ノートに状況をご報告ください。
+## 店販
+Q+ HBL商品の販売価格・POPはどこで確認できますか
+HBLの価格はサロンボードの店販→その他から確認できます。POPは全体広報で案内しています。ララピールの資料は共有フォルダにあります。
+Q+ 店販商品を新しく扱いたいです
+小笠原に確認のうえ、「小笠原さん確認済み」と添えて発注ノートで菊地さんへ依頼してください。
+## 社割
+Q 社割について教えてください
+・店販価格の3割引で購入できます。
+・レジ金に現金を入金後、日報で報告してください。
+> 【社販購入時】社販購入し、入金しております。商品名／個数／金額
+> 【入金時の報告】社販で○○円追加しています。
+
+# 店舗設備
+## 不備が起きたら
+Q 設備の不備・故障が起きたら、まず何をすればいいですか
+**STEP 1：緊急度を判断する**
+・緊急：営業継続が困難（エアコン全停止・水漏れ等）→ 即座に菅野へ連絡
+・要対応：放置すると悪化するもの（チェア故障・ドア不具合等）→ 当日中に連絡
+・軽微：すぐに営業支障はないもの（電球切れ・軽微な破損等）→ 今週中に連絡
+**STEP 2：店舗ノート（トークノート）で菅野まで連絡する**
+・店舗名　・不具合が発生した日　・何が・どこが・どんな状態か（具体的に）　・写真（全体＋故障箇所のアップ）　・現在の対応状況（使用中止中・応急処置中など）
+※写真がないと業者手配・見積もりができない場合があります。必ず添付してください。
+## スピーカー
+Q スピーカーのコードが壊れた場合
+発注ノートへご連絡ください。急ぎ対応したい場合は、お近くの店舗でご購入ください。
+※領収書を忘れずにお願いします。
+Q* スピーカーが故障した場合
+まず再接続・再起動を試し、エアペイなどの通知音が割り込んでいないか確認してください。
+改善しない場合は、発注ノートへ発注お願いいたします。急ぎ対応したい場合は、お近くの店舗でご購入ください。
+※領収書を忘れずにお願いします。※5,000円程度のスピーカーでお願いします。
+## 防犯カメラ
+Q 防犯カメラを設置してもらえますか
+状況を確認させていただきますので、店舗ノートで菅野までご連絡ください。
+・設置を希望する理由・状況
+・設置を希望する場所の写真
+## USEN
+Q USEN端末の故障や電波が悪くなった場合
+まず再起動を試してください。
+① 電源を切る ② 再起動する ③ それでも改善しない場合 → USENお客様センターへ電話（0120-117-440／9:00〜22:30 年中無休）
+④ システム担当の吉田までご相談ください。
+Q+ USEN端末（スマホ・Wi-Fi）を入れ替えた後はどうしたらいいですか
+全媒体の電話番号変更が完了してから新しい端末を使用してください。完了後、旧スマホ・ルーターを指定の住所へ郵送してください（送付先は吉田までご確認ください）。
+## Wi-Fi・カード決済
+Q Wi-Fiが使えなくてカード決済できない場合
+① 後ろのネジの部分を抜いて30秒ほど待ってから戻す（再起動）
+② 改善されない場合は、グループLINEで報告して、お客様に現金会計を依頼
+③ 現金会計ができない場合は一時的にスタッフのスマホでiPadとテザリングし対応
+④ 上記を試してもダメな場合は 0120-117-440 に電話して相談
+⑤ システム担当の吉田までご相談ください。
+> 現在クレジットカード端末の故障により、現金のみのお会計になりますがよろしいでしょうか？
+> （現金がない場合）施術後にATMなどでお持ちいただくことは可能でしょうか？
+> （キャッシュカードがない場合）後日現金をお持ちいただくことは可能でしょうか？
+## 店舗スマホ・iPad
+Q+ 店舗スマホやiPadが故障しました（バッテリー膨張・充電できない）
+USENの端末は吉田経由で交換します。iPadは修理の見積りを取り、1万円程度であればその場で修理してOKです（領収書必須）。
+## エアコン
+Q エアコンが故障した・効きが悪い場合
+店舗ノートで菅野まで以下の情報をご連絡ください。内容をもとに修理 or 清掃の判断と日程調整をします。
+・不具合が発生した日　・現在の状態　・エアコンの台数　・メーカー　・型式名・製造番号　・使用に支障があるか　・現在の対応状況　・エアコンの写真（外観・メーカー・型番・リモコン表示）　・店舗の開錠方法（営業時間外施工の可能性あり）　・洗浄場所の有無　・ブレーカーの位置
+※部品在庫やエリアによって修理日の調整にお時間がかかる場合があります。
+## リクライニングチェア
+Q チェアが故障した場合
+店舗ノートで菅野まで以下の情報をご連絡ください。
+・報告者名　・不具合が発生した日　・チェアの状態　・使用に支障があるか　・現在の対応状況　・チェア全体・故障部分の写真
+チェア型番（共通）：手動ラウンジチェア SHIFFON Jr-S（シフォンジュニア エス）ホワイト W78×D100×H98cm 重量30kg
+## 電球・照明
+Q 電球が切れた・席が暗い場合
+まず自己対応を試みてください。
+① 同じ規格の電球をお近くのホームセンターまたはドン・キホーテで購入・交換
+② 規格がわからない場合・高所作業で危険な場合 → 店舗ノートで菅野まで連絡（暗い場所の写真・高所作業の要否・電球の型番）
+## ドア・窓
+Q ドアの開閉が悪い・鍵がかかりにくい場合
+放置すると悪化・防犯上のリスクになるため、早めに店舗ノートで菅野まで以下をご連絡ください。
+・不具合が発生した日　・どのドア・窓か　・状態　・写真・動画　・現在の対応状況
+## 床・壁の破損
+Q 床や壁が傷んでいる場合
+店舗ノートで菅野まで以下をご連絡ください。
+・破損箇所　・状態　・破損の範囲がわかる写真（全体＋アップ）　・お客様や施術に支障があるか
+## トイレ
+Q トイレが詰まった場合
+① お近くのドン・キホーテ・ホームセンターでスッポン（ラバーカップ）を購入し対応
+② それでも直らない場合 → 店舗ノートで菅野まで連絡
+③ 近隣店舗でトイレを借りられないか相談する
+※お客様がいる場合は速やかにお声がけし、近隣のトイレを案内してください。
+※勝手に業者を頼むと高額な料金を請求されるため、まずは菅野までご連絡ください。
+## 店舗内装
+Q 入り口がわかりにくいとお客様から言われた場合
+店舗ノートで菅野まで、店舗入り口の写真（外から撮影）とお客様からの具体的な声をご連絡ください。
+Q 日差しが眩しい場合
+カーテン・ブラインド設置の検討をしますので、店舗ノートで菅野まで、眩しい席・時間帯と窓の写真をご連絡ください。
+## 鍵・防犯
+Q+ 鍵を紛失した／鍵が開かない
+店舗ノートで菅野までご報告ください。レジの鍵はメーカーで再発行できないため、スペアを大切に保管してください。キーケースの交換は発注ノートで依頼してください。
+Q+ 退勤後に誰かが店に入った形跡があります
+店舗ノートで菅野までご連絡ください。本部や業者が入ったかを確認し、管理会社にも共有します。
+## 停電・ブレーカー
+Q+ 停電・ブレーカーが落ちる場合は？
+店舗ノートで菅野までご連絡ください。管理会社が対応できない場合は、現地調査・見積り無料の電気業者を店舗で手配し、見積りが出たら菅野までご連絡ください。
+## 虫・ネズミ
+Q+ 虫・ネズミが出ます
+店舗ノートで菅野までご連絡ください。管理会社に侵入経路の調査・対応を依頼します。虫対策グッズが必要な場合は発注ノートで発注してください。
+## 施工業者
+Q 施工業者が店舗に入る場合は何を準備すればいいですか
+業者が無人でスムーズに入れるよう、施工前日までに鍵情報（ポストの番号・キーボックスの番号・ポストの場所）の確認をお願いします。鍵情報が1つでも間違っていると施工が中止になる場合があります。
+施工当日は店舗の電気・水道・ブレーカーを通常通りの状態にしておいてください。
+
+# 施術
+## 再来担当
+Q* 再来はいつから担当できるようになりますか
+未経験の方は1ヶ月後に研修・技術チェックがあるので、それに合格したら担当していただけます。
+経験者の方は面談ノートで古林までご相談ください。
+## お直し
+Q+ お直しの対応はできますか
+お直しは可能ですが、売上補填はありません。こちらからはご提案せず、無料のお直しを求められた場合はマネージャーにご確認ください。
+## フルフェイス
+Q フルフェイス後、赤みがでました。どうしたらいい？
+「ヒスタミン反応」という、肌質によって毛を抜いた衝撃で血管が刺激され一時的に炎症しているような状態です。時間が経つと引いてくるので、お冷やしをして鎮静し、引っ掻かないようにお伝えしてください。
+## 間引き
+Q 間引き・フルフェイスの単品メニューは可能でしょうか
+単品での対応は原則不可です。いつもご来店いただいている方で、何か事情がある場合は店舗ノートからご相談ください。
+## アイブロウWAX
+Q アイブロウWAXの同意書はありますか？
+アイブロウWAX・まつ毛パーマの同意書はこちらをご確認ください。
+https://drive.google.com/drive/folders/1yn7KDHlCxPHKu3ii2ABIDkz1nu779kbv?usp=sharing
+Q アイブロウWAXの直後はメイクはしないほうが良いですか
+WAX後のメイクは基本的に問題ないです。ただし、肌に痛み・赤みがみられる際には念のため控えていただくほうが良いです。
+Q WAX後に毛が生えてくることについて
+毛には一本ずつ毛周期があり、成長期→退行期→休止期というサイクルで、生えるスピードが違います。取ったところが生えてくるのは毛周期のタイミングが関係している可能性が高いです。
+## まつ毛パーマ
+Q まつ毛パーマの研修を始めたいです
+面談ノートで小笠原までご連絡ください。デビュー後半年〜1年後を目安に研修を受けられます。
+## 施術ミス
+Q お肌が剥離してしまったようです。どう対応したらいいですか
+お客様に剥離の状況をお伝えし、以下を説明ください。
+・変に冷やしたり重いものを載せることは逆効果の可能性があるため、なるべく触らずに様子を見ていただくこと
+・それでも症状が継続する場合は、店舗にご連絡いただき、皮膚科を受診いただくこと
+※数日で治るなどの明言は控えてください。
+## ララピール
+Q ララピールとアイブロウWAXの併用はできますか
+ララピールはWAX後に施術してください。ララピール後にWAXを行う場合は皮膚への負担が増すのでお断りしてください。
+Q+ ララピールとまつ毛パーマの同時施術はできますか
+ララピール→まつ毛パーマの順であれば同時施術可能です。
+## 対象年齢・お客様
+Q* 下限年齢はありますか
+16歳未満の方は施術がNGになります。施術時点で16歳以上かで判断します。未成年の方は生年月日・身分証を確認してください。
+Q+ 日本語が話せないお客様の予約は受けていいですか
+翻訳アプリなどで対応し、お断りする必要はありません。
+Q+ ブライダル前のお客様の施術は？
+大切な予定がある方には、1ヶ月程度余裕を持ってご来店いただくようご案内ください。
+## 眉カラー
+Q 眉カラーの管理方法を教えてください
+流出防止のため、フタを閉めて保管ください。
+## ハリウッドブロウ
+Q ハリウッドブロウにおける、軟化しているかどうかの確認方法を教えてください
+一部分だけ液体をしっかりと取って、ほぼ液体がついていない状態で毛が跳ね返っていないか確認してください。
+Q HBLと眉カラーの同時施術について
+HBLと眉カラーは最低1週間空けてください。専門の薬剤同士を同時に使うことは薬事法で禁止されているためお断りしてください。
+## 時間短縮
+Q 施術時間を短縮する方法を教えてください
+面談ノートで小笠原・清水までご相談ください。一緒に課題を見つけ、解消できる方法を考えていきましょう。
+## ピーリング
+Q ピーリングを行った直後の施術は可能ですか
+ピーリングの種類により異なります。詳細は店舗ノートで小笠原までご確認ください。
+
+# 研修
+## 早退・遅刻
+Q* 研修中に具合が悪くなり早退したいです
+面談ノートで研修MGまでご連絡ください。
+Q* 研修中に遅刻しそうな時はどうしたらいいですか
+速やかに面談ノートで研修MGまでご連絡いただき、到着予定時間をお知らせください。
+## 準備・持ち物
+Q 研修中の持ち物を教えてください
+研修中の持ち物は筆記用具のみです。
+## 体調不良
+Q* 研修中に体調不良でお休みしたい時はどうしたらいいですか
+可能であれば前日までに面談ノートで研修MGへご連絡ください。当日の欠勤は朝8時までにご連絡をお願いします。
+## 昼食
+Q 研修中のランチはどうしたらいいですか
+休憩時間中にご自身でお済ませください。外で食べても、ご持参いただき店内で食べても大丈夫です。
+## モデル
+Q* 練習用のモデルは自分で集めるのでしょうか
+練習用のモデルは、基本的には運営の方で集めます。集まらない場合は、ご協力をお願いする可能性があります。ミニモでモデルを募集することも可能です。
+Q モデルの来店がない場合はどうしたらいいですか
+お店の電話からモデルへ電話し、繋がらない場合は面談ノートでその旨を報告お願いします。その後、スタイリストページの作成やミニモ作成などのタスクを進めてください。
+## 勤務時間
+Q 研修期間の勤務時間を短くすることはできますか
+原則不可となりますが、個別の状況によりご相談いただける可能性があるため面談ノートでご連絡ください。
+Q 研修中は何時に出社したらいいですか
+研修開始の30分前（11時開始であれば10時30分）までに出社お願いします。
+## SNS
+Q SNSに力を入れたいです
+面談ノートでご連絡をお願いします。
+## 研修の種類
+Q 受講できる研修は？
+・眉カラー → 入社から1ヶ月後に受講可能
+・まつ毛パーマ → 入社から半年後に受講可能
+・ララピール → 入社から半年後に受講可能
+・まつ毛エクステ → 入社1年後に研修可能
+・SNS研修 → 入社半年後に研修可能
+・HBL相談室 → 随時（HBLの悩みが出た時に相談OK）https://forms.gle/EyC8BfgMxKRi3M7X6
+・朝活勉強会 → 随時チェックしてください https://docs.google.com/spreadsheets/d/1tjiI61g8NXSM_nKWe0VSUmw2c2kjN6gLM40vFj79u14/edit?usp=sharing
+※研修を受けたい場合は、時期がきましたらトークノートでご連絡ください。
+Q+ 1年研修・半年研修の日程は？
+研修日程は月末頃に小笠原から案内します。遠方の場合の交通費・宿泊は本部が手配します。
+## トーク練習
+Q カウンセリングトーク練習はいつから始めたらいいですか
+研修期間中から練習してください。デビュー1ヶ月後にマネージャーテストがありますので、デビュー後も先輩と練習をお願いします。
+練習後は、ロープレマラソンシートを更新し、毎回面談ノートで報告をお願いします。
+
+# 店舗運営業務
+## スタッフ写真
+Q スタッフ写真の撮影方法を教えてください
+・カメラはノーマルカメラで撮影お願いします
+・顔が明るくなるようライトをあてる
+## 口コミ
+Q* 口コミの返信方法を教えてください
+① 毎朝自分の口コミが入っていないかチェック（担当者の名前が入っていないこともあります）
+② 口コミ返信は、お客様への感謝の気持ちと特別感が出るような内容にしてください
+③ 担当者の名前を最後に記載ください
+④ 厳しい口コミは「クレーム対応」のカテゴリで確認してください
+## レジ締め
+Q レジ締めの現金が合わない
+店舗ノートで差異金額を報告してください。次の日の朝再度数えて合わなければ、店舗ノートで報告お願いします。
+## 会計
+Q お釣りを間違えた場合どうしたらよいですか
+お客様に電話をして返金対応・追加支払いなど、再度ご来店いただけるようお願いしてください。その後、店舗ノートで報告してください。
+Q クレジットカード二重決済してしまった可能性があります
+お客様に事情を説明し、明日確認してご連絡する旨をお伝えください。
+① 担当者かAirPAYに翌日お電話（0120-39-4861）で確認
+② 該当決済を確認して二重決済の場合は取り消し依頼
+③ お客様に電話して状況をお伝えする
+④ 状況を店舗グループで報告
+※スマート支払いでの問い合わせの場合は、二重決済ではなく与信の問題になります。
+Q+ スマート支払いで二重に引き落とされたとお客様から言われました
+予約時にカードの与信確認（仮押さえ）が入るだけで、二重払いではありません。デビットカードの場合は一時的に引き落としが発生することがあります。
+Q+ クーポンの併用や利用条件を教えてください
+他店舗のLINEクーポンはその店舗でのみ利用できます。半年クーポンは半年以内にご来店のある方は対象外です。誕生日クーポンは来店時に画像を提示していただいてください。
+Q+ 返品・返金の対応方法を教えてください
+返金は本部から振込で行います。お客様の口座名義・銀行名・支店名・口座番号・金額を確認し、店舗ノートで共有してください。
+## キャンセル
+Q+ キャンセル料はどのような場合に請求されますか
+請求は自動で行われます。新規のお客様は無断・当日キャンセルとも100%、既存のお客様は無断キャンセルのみ請求されます（5日以内に再予約すると免除）。サロン都合のキャンセルは、メモ欄に「サロン都合」と記載しないと請求が送られるのでご注意ください。
+Q+ お客様がキャンセル料に納得されない／サロン都合なのに請求が届いた
+請求を止める対応が必要なので、店舗ノートでマネージャーにご連絡ください。別ブランド（i.）の請求と勘違いされているケースもあります。
+Q+ キャンセルポリシーはお客様にどこで表示されていますか
+ホットペッパーのキャンセル規定には「当日キャンセル100%請求」のみ記載しています。5日以内の再予約で免除になる案内は、キャンセル後にSMSで送られます。ミニモも100%です。
+Q+ 無断キャンセルを繰り返すお客様の予約を止められますか
+特定のお客様だけ予約できないようにするのはシステム上難しいため、店舗ノートでマネージャーにご相談ください。
+Q+ お客様が予約時間に来ない場合は何分待てばいいですか
+予約時間から15分経過しても連絡が取れない場合は、キャンセル処理をしてください。
+Q+ 誤って無断キャンセル処理をしてしまいました
+店舗ノートでマネージャーにご連絡ください。サロン都合なのに請求が送られた場合は、返金（お客様の口座情報を確認）または施術で対応します。無断キャンセル以外のキャンセルは、新規・再来を問わずメモ欄に「サロン都合」と記載してください。
+## 入金
+Q 売上金の入金について教えてください
+振り込み時は「振り込み予定金額」と「実際の振り込み金額」のズレがないか必ず確認してください。
+## 店舗に届く書類・連絡
+Q+ 店舗に届いた書類・調査票はどうすればいいですか
+経済センサスなどの調査は菅野が対応します。店舗ノートで菅野まで共有してください。
+Q+ 保健所・消防署などから書類や訪問があった場合は？
+店舗ノートで菅野までご連絡ください。保健所への変更届などは本部が対応します。消防の防火管理者は店舗に常駐している人が必要なため、スタッフ1名が講習を受けて取得します。
+Q+ ビル管理会社・商店会から連絡があった場合は？
+管理会社とのやりとりは菅野が対応します。店舗ノートで菅野までご連絡ください。
+## ゴミ・清掃
+Q+ ゴミ出し・粗大ゴミのルールを教えてください
+地域やビルごとにルールが違うため、店舗ノートで菅野までご確認ください（管理会社に確認します）。
+Q+ 大掃除・清掃・洗濯で予約枠を閉じていいですか
+大掃除のアナウンスルールに従って対応してください。
+## スタッフ
+Q+ 新しいスタッフが来る時の準備は？
+新しいスタッフの入店は、1週間前を目安に全店舗にアナウンスします。名札の名前はホットペッパーの登録名にしてください。
+Q+ スタッフが出勤してこない・連絡がつかない時は？
+お客様対応を優先しつつ、本人に連絡してください。店舗ノートでマネージャーにもご報告ください。
+## 災害
+Q+ 地震・台風など災害時の対応は？
+安全を最優先にしてください。避難経路などはビルのルールに従ってください。
+
+# システム
+## AirPAY
+Q クレジットカード決済における、金額修正方法を教えてください
+こちらのリンクを確認し対応してください。
+https://faq.airpayment.jp/hc/ja/articles/216578218
+Q AirPAYにて利用できないクレジット・QR決済があります
+AirPAYアプリからご利用可能な決済方法をご確認ください。その他の決済方法は現在審査中です。審査には最大30ヶ月要する場合があります。
+Q AirPAYでのiD支払いの会計時は「その他」「クレジットカード」どちらを選択すれば良いですか
+AirPAYでのiD支払いの会計時は **「その他」** を選択し会計お願いします。
+Q AirPAYの端末が故障してしまったのですがどうしたら良いですか
+AirPAYヘルプデスクにお電話してください。
+Airペイ ヘルプ：050-3108-5711（10:00〜18:30／土日祝・年末年始は休業）
+## ミニモ
+Q 欠勤したい日にミニモから予約が入っています
+ご自身のミニモアプリからお客様へ以下メッセージをお送りください。
+> ご予約をキャンセルさせていただきます。弊店スタッフの体調不良により本日のご予約が受け付けられなくなりました。誠に申し訳ございませんがご予約をキャンセルさせていただきます。折角ご予約を頂いている中誠に申し訳ございません。ご迷惑をお掛けしているお詫びに次回ご来店の際、「間引き」のサービスをさせていただきます。i'm 運営
+Q お客様からミニモのポイントについて聞かれたのですが、どうしたら良いですか
+i'mグループはミニモのポイント対象外です。
+Q+ ミニモ・ネイリーの指名料や設定について教えてください
+ネイリーは指名料なしです。ミニモも基本は指名料なしです。ミニモの設定に関することは古林までご連絡ください。
+## LINE
+Q 公式LINEのメッセージ送信が200通を超えてしまいましたがどうしたら良いですか
+公式LINEのメッセージは200通までしか送れません。お客様へのご連絡が必要な場合は、電話で対応お願いします。
+Q+ LINE予約が重複して入る／来店していないのにLINEが届いたと言われました
+LINEの重複予約はネイリーとの連携エラーが原因です。気づいた場合は店舗ノートで吉田までご連絡ください。来店していないのにメッセージが届いた件は、サロリザの送信履歴で確認できます。
+## Google
+Q Googleマップがずれてます
+店舗ノートで吉田まで詳細ご連絡お願いします。
+Q+ Googleの口コミ返信・写真変更をしたいです
+吉田が店舗アドレスに権限を付与します。写真を変更したい場合は、店舗ノートで吉田まで画像をお送りください。
+## サロリザ
+Q サロリザ経由の予約がダブルブッキングしています
+重なっているお客様にお店から電話をして、時間変更を相談してください。必要あれば次回間引きを無料でサービスする旨を伝え、サロンボードのお客様情報メモ欄にその旨を記載お願いします。
+Q サロリザの同期設定を教えてください
+① 他サイト連携設定をクリック
+② サロンボード連携設定の「スタッフシフト設定取り込み」の「今すぐ同期する」をクリック
+③ 同期済みになったのを確認
+④ 楽天ビューティー連携設定の「スタッフシフト設定反映」の「今すぐ同期する」をクリック
+**※楽天ビューティー連携設定は「スタッフシフト設定反映」以外は必ず押さないでください。楽天ビューティーの指名料金が外れて無料になってしまいます。**
+Q+ 休憩・面談の時間を閉じたのに予約が入りました
+サロリザのシステムエラーの場合があります。店舗ノートでご報告ください。
+Q+ サロリザで顧客を統合したい／誤って統合してしまった
+「統合候補一覧」からLINE提携のIDをコピーし、顧客統合で検索して統合してください。誤って統合した場合は基本的に戻せないため、ヘルプデスク（0120-36-0493）にご連絡ください。
+## サロンボード
+Q* サロンボードにパスワード変更のアナウンスが出ています
+店舗でパスワードを変更していただき、サロリザにあるサロンボードのパスワードも同じものに変更していただき、店舗ノートで共有をお願いいたします。
+Q サロンボードにログインできないです
+① ID、PWを再度コピペで入力しお試しください。
+② 店舗ノート（まだ未配属の場合は面談グループLINE）で最新のパスワードを確認してください。
+Q+ 対応できないメニューの予約が入ります
+サロンボードの「対応メニュー設定」が原因のことが多いです。店舗ノートで吉田まで設定修正をご依頼ください。
+Q+ メニューの所要時間と合わない予約が入りました
+お客様に時間変更をご相談ください。難しい場合は、マネージャーからお客様にご連絡することも可能です。
+Q サロンボードの操作がわからないです
+ヘルプデスクに問い合わせをお願いいたします。
+電話：0120-36-0493
+https://sbhd-kirei.salonboard.com/hc/ja/articles/360039395113
+## 楽天ビューティー
+Q 楽天ビューティーにて、無断キャンセルの場合はどう対応したらよいですか
+サロンボードから無断キャンセル処理をお願いします。
+Q 楽天ビューティーにて、全額ポイント利用で予約されたお客様の金額が変わった場合
+変更後の金額で会計をしてください。利用ポイント額を下回った場合は、後日楽天からポイントが返還されます。
+## ホットペッパー
+Q ホットペッパーで予約されたお客様の会計時に、指名料を追加したいです
+オプションから指名を追加してください。
+Q+ 指名料が表示されていない予約はどうしたらいいですか
+お客様に指名料300円がかかる旨をお伝えください。トラブルになりそうな場合は0円で会計し、マネージャーに報告してください（補填されます）。
+リファンドハブからの再予約については指名料の対象外になります。
+Q ホットペッパーにて全額ポイント利用で予約されたお客様の金額が変わった場合
+変更後の金額で会計し、利用ポイント額を下回った場合は、来店処理修正申請にてポイント返還を申請ください。
+https://sbhd-kirei.salonboard.com/hc/ja/articles/360019294793-
+Q+ ホットペッパーのスタッフ掲載・写真・メニュー・クーポンを変更したいです
+店舗ノートで吉田までご依頼ください。
+## ネイリー
+Q+ ネイリーの事前決済の会計方法を教えてください
+ネイリーは事前決済（スマート支払いと同じ）です。サロンボードでメニューと金額を入れて「ネイリー事前決済」を選択してください。RefundHubの500円はお客様に後日付与されるもので、会計は通常どおりです。
+## Talknote
+Q+ Talknoteのグループ（店舗・発注）に入っていません
+店舗ノートでマネージャーにご連絡ください。招待します。
+
+# クレーム対応
+## 口コミクレーム
+Q マイナスの口コミを頂いた場合どうしたらよいですか
+内容にもよりますが、下記のフォーマットを参考にご返信お願いします。どうしても心配な場合は、面談ノートでマネージャーメンションのうえ、内容を共有してください。
+**① 接客・対応についての悪い口コミ（おすすめ）**
+> この度はご来店いただき、誠にありがとうございました。せっかく当サロンをお選びいただいたにもかかわらず、ご期待に沿うことができず、大変申し訳ございませんでした。いただいたご意見を真摯に受け止め、スタッフ間でも共有し、今後のサービス向上に努めてまいります。貴重なご意見をお寄せいただき、ありがとうございました。
+**② 施術の仕上がりに満足いただけなかった場合**
+> この度は数あるサロンの中から当店をお選びいただき、誠にありがとうございました。施術に関してご満足いただける結果とならず、申し訳ございませんでした。今回いただいたご意見を大切にし、カウンセリングや施術内容を改めて見直し、より安心してお任せいただけるサロンづくりに努めてまいります。この度は貴重なご意見をいただき、ありがとうございました。
+**③ 口コミの内容に事実と異なる部分がある場合**
+> この度はご来店いただき、誠にありがとうございました。また、貴重なご意見をお寄せいただきありがとうございます。今回の件につきまして、お客様にご不安な思いをさせてしまったことを心苦しく感じております。いただいた内容については、当日の対応状況も含めて改めて確認し、今後より安心してご利用いただけるよう努めてまいります。この度は率直なご意見をいただき、ありがとうございました。
+## 電話クレーム
+Q お客様からクレームをいただいた場合、どうしたらよいですか
+まず店舗にてご対応をお願いいたします。基本は返金不可ですが、温度感が高い方や対応が難しい場合は返金対応で進めて問題ないです。
+① 丁寧に謝罪し、「一度確認のうえご連絡いたします」とお伝えしてください。
+② 振込での返金を希望される場合は、金融機関名・支店名・口座種別・口座番号・口座名義（フリガナ）・金額を確認お願いいたします。
+## 個人的な連絡
+Q+ お客様から個人的な連絡が続く場合はどうしたらいいですか
+以下のように返信し、以降は既読をつけずに削除して大丈夫です。心配な場合は面談ノートでマネージャーにご相談ください。
+> 個人携帯での対応は控えさせていただきます。ご予約・ご連絡はネット予約か店舗へお願いします。
+</script>
+<script>
+(function(){
+  const NAMES=["小笠原","吉田","菅野","古林","秋永","菊地","加藤","横山","清水"];
+  const TERMS=["欠勤","有休","遅刻","ドタキャン","交通費","領収書","故障","口コミ","サロボ","パスワード"];
+  const NEW_UNTIL=new Date("2026-12-12T00:00:00+09:00").getTime();const SHOW_NEW=Date.now()<NEW_UNTIL;
+  const URGENT=[["水漏れ・設備の故障","設備の不備・故障が起きたら、まず何をすればいいですか"],["カード決済ができない","Wi-Fiが使えなくてカード決済できない場合"],["AirPAY端末の故障","AirPAYの端末が故障してしまったのですがどうしたら良いですか"],["当日欠勤する","スタッフの体調不良での欠勤時の対応について教えてください"],["電車遅延・台風で遅れる","電車遅延・台風・地震などで遅刻しそう／出勤が難しい時はどうしたらいいですか"],["トイレが詰まった","トイレが詰まった場合"],["お肌が剥離した","お肌が剥離してしまったようです。どう対応したらいいですか"],["お客様からのクレーム","お客様からクレームをいただいた場合、どうしたらよいですか"],["地震・災害が起きた","地震・台風など災害時の対応は？"]];
+  const POPULAR=["スタッフの体調不良での欠勤時の対応について教えてください","半日休暇（午前・午後休暇）に関するルールや手続きを教えてください","有給はいつから取れますか","交通費の申請方法を教えてください","キャンセル料はどのような場合に請求されますか","指名料が表示されていない予約はどうしたらいいですか","設備の不備・故障が起きたら、まず何をすればいいですか","Wi-Fiが使えなくてカード決済できない場合","領収書をもらい忘れてしまいました","サロンボードにログインできないです"];
+  const SYN=[
+    ["有給","有休","有給休暇","年休"],["半休","半日休暇","午前休","午後休"],["欠勤","休み","休む","お休み"],
+    ["体調不良","風邪","発熱","熱","コロナ","インフル","具合"],["遅刻","遅れ","遅延"],
+    ["キャンセル","ドタキャン","当キャン","無断キャンセル","キャンセル料"],
+    ["airpay","エアペイ","airペイ","エアーペイ"],["ホットペッパー","hpb","ホッペ","ホットペッパービューティー"],
+    ["サロンボード","サロボ"],["リファンドハブ","refundhub"],["ネイリー","nailie"],["ミニモ","minimo"],
+    ["楽天","楽天ビューティー","楽ビュー"],["talknote","トークノート"],
+    ["交通費","定期","定期代","通勤費","電車代"],["給与","給料","明細","給与明細"],["領収書","レシート"],
+    ["パスワード","pw","ログイン"],["エアコン","冷房","暖房","空調"],["wi-fi","wifi","ワイファイ","ネット"],
+    ["スマホ","携帯","iphone","端末"],["保険証","健康保険","マイナ保険証"],["口コミ","クチコミ","レビュー"],
+    ["カード","クレカ","クレジット"],["二重決済","二重払い","ダブル決済","二重"],
+    ["hbl","ハリウッドブロウ","ハリウッド"],["まつ毛パーマ","まつパ","まつげパーマ","まつ毛"],["ララピール","ララ"],
+    ["ゴミ","ごみ"],["鍵","カギ","キー"],["入金","振込","振り込み"],["社割","社販"]
+  ];
+  const norm=s=>s.normalize("NFKC").toLowerCase();
+  const kata=s=>s.replace(/[ぁ-ゖ]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60));
+  const synIndex=SYN.map(g=>g.map(norm));
+  function expand(t){
+    const alts=new Set([t,kata(t)]);
+    synIndex.forEach(g=>{if(g.some(w=>w===t||w===kata(t)||(t.length>=2&&w.includes(t))))g.forEach(w=>alts.add(w))});
+    return [...alts];
+  }
+
+  const raw=document.getElementById("data").textContent;
+  const items=[];let cat=null,sec="",cur=null;const cats=[];
+  raw.split("\n").forEach(l=>{
+    l=l.replace(/\s+$/,"");
+    if(!l) return;
+    if(l.startsWith("# ")){cat=l.slice(2);cats.push(cat);sec="";cur=null;return}
+    if(l.startsWith("## ")){sec=l.slice(3);cur=null;return}
+    const m=l.match(/^Q([+*]?) (.*)$/);if(m){cur={cat,sec,q:m[2],flag:m[1],a:[]};items.push(cur);return}
+    if(cur) cur.a.push(l);
+  });
+  const CH=["店舗ノート","面談ノート","発注ノート","店舗グループ","グループLINE","ヘルプデスク"];
+  const WHO=["研修MG","マネージャー","人事担当","人事"];
+  const BASE="https://im-store-guide.github.io/";
+  const FORM="https://docs.google.com/forms/d/e/1FAIpQLSeJlaraYti80wY_B4vCpwmPp4wDOYASDl4qhU9qHYzSCK5YLw/viewform";
+  const ENTRY={kind:"entry.1876197171",q:"entry.1288245997",body:"entry.1846951963"};
+  function formUrl(v){const p=new URLSearchParams({usp:"pp_url"});Object.keys(ENTRY).forEach(k=>{if(v[k])p.set(ENTRY[k],v[k])});return FORM+"?"+p.toString()}
+  const hashOf=s=>{let h=5381;for(const c of s)h=((h*33)^c.codePointAt(0))>>>0;return "q-"+h.toString(36)};
+  items.forEach((it,i)=>{
+    it.id=i;it.key=hashOf(it.q);it.text=norm(it.cat+" "+it.sec+" "+it.q+" "+it.a.join(" "));
+    const body=it.a.filter(l=>!l.startsWith("> ")).join(" ");
+    it.ch=CH.filter(c=>body.includes(c)).sort((a,b)=>body.indexOf(a)-body.indexOf(b)).slice(0,2);
+    let who=NAMES.filter(n=>body.includes(n)).sort((a,b)=>body.indexOf(a)-body.indexOf(b));
+    if(!who.length){const w=WHO.find(w=>body.includes(w));if(w)who=[w]}
+    it.who=who.slice(0,3);
+  });
+
+  const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const nameRe=new RegExp("("+NAMES.join("|")+")","g");
+  function inline(s){
+    return s.split(/(https?:\/\/[^\s）)]+)/).map((part,i)=>{
+      if(i%2) return '<a href="'+esc(part)+'" target="_blank" rel="noopener">'+esc(part)+'</a>';
+      return esc(part).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(nameRe,'<span class="name">$1</span>');
+    }).join("");
+  }
+  function hl(text,groups){
+    const words=[...new Set(groups.flat())].filter(w=>w.length>=1).sort((a,b)=>b.length-a.length);
+    if(!words.length) return esc(text);
+    const n=norm(text);let out="",i=0;
+    while(i<text.length){
+      const w=words.find(w=>n.startsWith(w,i));
+      if(w){out+="<mark>"+esc(text.slice(i,i+w.length))+"</mark>";i+=w.length}else{out+=esc(text[i]);i++}
+    }
+    return out;
+  }
+  function toLine(it){
+    if(!it.ch.length&&!it.who.length) return "";
+    return '<div class="to"><span class="lbl">連絡先</span>'+it.ch.map(c=>'<span class="ch">'+esc(c)+'</span>').join("")+
+      (it.ch.length&&it.who.length?'<span class="lbl">→</span>':"")+it.who.map(w=>'<span class="who">'+esc(w)+'</span>').join("")+'</div>';
+  }
+  function answer(lines){
+    let out="",ul=[],tpl=[];
+    const flushUl=()=>{if(ul.length){out+="<ul>"+ul.map(x=>"<li>"+inline(x)+"</li>").join("")+"</ul>";ul=[]}};
+    const flushTpl=()=>{if(tpl.length){const t=tpl.join("\n");out+='<div class="tpl"><div>'+tpl.map(inline).join("<br>")+'</div><button type="button" data-copy="'+esc(t)+'">文面をコピー</button></div>';tpl=[]}};
+    lines.forEach(l=>{
+      if(l.startsWith("> ")){flushUl();tpl.push(l.slice(2));return}
+      flushTpl();
+      if(l.startsWith("・")){ul.push(l.slice(1));return}
+      flushUl();out+="<p>"+inline(l)+"</p>";
+    });
+    flushUl();flushTpl();return out;
+  }
+  const reqCard=(pre)=>'<section class="req"><h3>ガイドにない質問を送る</h3><p>ここに載っていない困りごとがあれば、フォームから送ってください。サポートチームで確認して、ガイドに追加します。</p><div><a class="fbbtn pri" href="'+esc(formUrl({kind:"ガイドにない質問",body:pre||""}))+'" target="_blank" rel="noopener">サポートチームに質問を送る</a></div></section>';
+  const badge=it=>!SHOW_NEW?"":it.flag==="+"?'<span class="badge new">NEW</span>':it.flag==="*"?'<span class="badge upd">更新</span>':"";
+  const card=(it,groups,open,showCat)=>'<details class="qa" id="'+(showCat==="u"?"u-":"")+it.key+'"'+(open?" open":"")+'><summary><span class="meta">'+esc(showCat?it.cat+"｜"+it.sec:it.sec)+'</span><span class="q">'+badge(it)+hl(it.q,groups)+'</span></summary><div class="ans">'+toLine(it)+answer(it.a)+'<div class="fb"><div class="row"><span>この回答で解決しなかったときは</span><a class="fbbtn" href="'+esc(formUrl({kind:"解決しなかった",q:it.q,body:$q.value.trim()}))+'" target="_blank" rel="noopener">サポートチームに送る</a></div></div><div class="share"><button type="button" data-link="'+it.key+'">リンクをコピー</button><small>Talknoteに貼るとこの質問が開きます</small></div></div></details>';
+
+  const $q=document.getElementById("q"),$list=document.getElementById("list"),$cats=document.getElementById("cats"),$count=document.getElementById("count"),$clear=document.getElementById("clear"),$head=document.getElementById("heading"),$controls=document.getElementById("controls");
+  const HOME="トップ",ALL="すべて",NEWS="新着・更新";
+  let active=HOME;
+  try{const s=localStorage.getItem("guide-cat2");if(s&&(s===HOME||s===ALL||(s===NEWS&&SHOW_NEW)||cats.includes(s)))active=s}catch(e){}
+
+  const termsEl=document.getElementById("terms");
+  TERMS.forEach(t=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=t;b.onclick=()=>{$q.value=t;render();$controls.scrollIntoView({block:"start"})};termsEl.appendChild(b)});
+
+  function groupsOf(){return norm($q.value.trim()).split(/[\s　]+/).filter(Boolean).map(expand)}
+  const matches=(it,gs)=>gs.every(g=>g.some(w=>it.text.includes(w)));
+  const setActive=c=>{active=c;try{localStorage.setItem("guide-cat2",c)}catch(e){}};
+
+  function renderCats(gs,searching){
+    const counts={};items.forEach(it=>{if(matches(it,gs))counts[it.cat]=(counts[it.cat]||0)+1});
+    const total=Object.values(counts).reduce((a,b)=>a+b,0);
+    const newsN=items.filter(it=>it.flag&&matches(it,gs)).length;
+    const list=[[HOME,null],[ALL,total],...(SHOW_NEW?[[NEWS,newsN]]:[]),...cats.map(c=>[c,counts[c]||0])];
+    $cats.innerHTML=list.filter(([c,n])=>!(searching&&(c===HOME||n===0))).map(([c,n])=>{
+      const pressed=searching?(c===active||(active===HOME&&c===ALL)):(c===active);
+      return '<button type="button" class="cat" aria-pressed="'+pressed+'" data-cat="'+esc(c)+'">'+esc(c)+(n===null?"":'<i>'+n+'</i>')+'</button>';
+    }).join("");
+    const on=$cats.querySelector('[aria-pressed="true"]');
+    if(on){const r=on.offsetLeft-$cats.clientWidth/2+on.clientWidth/2;$cats.scrollLeft=Math.max(0,r)}
+  }
+  function renderHome(){
+    $head.textContent="困りごとから探す";
+    $count.innerHTML="全 <b>"+items.length+"</b> 件";
+    const pop=POPULAR.map(q=>items.find(it=>it.q===q)).filter(Boolean);
+
+    const nNew=items.filter(it=>it.flag==="+").length,nUpd=items.filter(it=>it.flag==="*").length;
+    $list.innerHTML='<section class="urgent"><div class="uh"><h3>今すぐ困っているとき</h3><span>営業中のトラブル・当日の欠勤など</span></div><div class="ugrid">'+URGENT.map(([l],i)=>'<button type="button" class="ubtn" data-urg="'+i+'" aria-pressed="false">'+esc(l)+'</button>').join("")+'</div><div id="upanel"></div></section>'+
+    (SHOW_NEW?'<button type="button" class="newsbtn" data-cat="'+NEWS+'"><div><b>新着 '+nNew+'件・更新 '+nUpd+'件</b>（2026/11/12）<br><span>追加・変更されたルールをまとめて確認できます</span></div><span>見る →</span></button>':"")+
+    '<h3 class="sub">カテゴリから探す</h3><div class="tiles">'+cats.map(c=>{
+      const its=items.filter(it=>it.cat===c);const secs=[...new Set(its.map(it=>it.sec))].slice(0,4).join("・");
+      return '<button type="button" class="tile" data-cat="'+esc(c)+'"><b>'+esc(c)+'</b><span class="n">'+its.length+'件</span><small>'+esc(secs)+'</small></button>';
+    }).join("")+'</div><section class="group"><h3 class="sub">よく見られる質問</h3><div class="list">'+pop.map(it=>card(it,[],false,true)).join("")+'</div></section><button type="button" class="allbtn" data-cat="'+ALL+'">すべての質問を見る（'+items.length+'件）</button>'+reqCard("");
+  }
+  function render(){
+    const gs=groupsOf();const searching=gs.length>0;
+    $clear.hidden=!$q.value;
+    renderCats(gs,searching);
+    if(!searching&&active===HOME){renderHome();return}
+    const scope=active===HOME?ALL:active;
+    $head.textContent=searching?"検索結果":(scope===ALL?"すべての質問":scope===NEWS?"新着・更新（2026/11/12）":scope);
+    const shown=items.filter(it=>(scope===ALL||(scope===NEWS?!!it.flag:it.cat===scope))&&matches(it,gs));
+    $count.innerHTML="<b>"+shown.length+"</b> 件のガイド";
+    if(!shown.length){$list.innerHTML='<div class="empty">「'+esc($q.value)+'」に当てはまるガイドが見つかりませんでした。<br>言葉を短くするか、カテゴリを「すべて」にして探してください。<br>解決しない場合は、店舗ノート・面談ノートでマネージャーへご相談ください。</div>'+reqCard($q.value);return}
+    const open=searching&&shown.length<=3;
+    const groups={};shown.forEach(it=>{(groups[it.cat]=groups[it.cat]||[]).push(it)});
+    $list.innerHTML=cats.filter(c=>groups[c]).map(c=>
+      '<section class="group"><div class="ghead"><h3>'+esc(c)+'</h3><span>'+groups[c].length+'件</span></div><div class="list">'+
+      groups[c].map(it=>card(it,gs,open,false)).join("")+'</div></section>').join("")+reqCard(searching?$q.value:"");
+  }
+  document.addEventListener("click",e=>{
+    const u=e.target.closest("[data-urg]");
+    if(u){const it=items.find(x=>x.q===URGENT[+u.dataset.urg][1]);const panel=document.getElementById("upanel");const was=u.getAttribute("aria-pressed")==="true";
+      document.querySelectorAll(".ubtn").forEach(x=>x.setAttribute("aria-pressed","false"));
+      panel.innerHTML=(!was&&it)?card(it,[],true,"u"):"";if(!was)u.setAttribute("aria-pressed","true");return}
+    const b=e.target.closest("[data-cat]");if(!b||b.tagName!=="BUTTON")return;
+    setActive(b.dataset.cat);render();
+    if(!b.classList.contains("cat"))$controls.scrollIntoView({block:"start"});
+  });
+  $q.addEventListener("input",render);
+  $clear.addEventListener("click",()=>{$q.value="";render();$q.focus()});
+  $list.addEventListener("click",e=>{
+    const l=e.target.closest("button[data-link]");
+    if(l){const url=BASE+"#"+l.dataset.link;const box=l.parentElement;
+      const fb=()=>{let inp=box.querySelector("input");if(!inp){inp=document.createElement("input");inp.readOnly=true;inp.value=url;inp.setAttribute("aria-label","この質問のリンク");box.appendChild(inp)}inp.focus();inp.select();l.textContent="リンクを選択しました"};
+      try{navigator.clipboard.writeText(url).then(()=>{l.textContent="コピーしました";setTimeout(()=>l.textContent="リンクをコピー",1600)},fb)}catch(err){fb()}
+      return}
+    const b=e.target.closest("button[data-copy]");if(!b)return;
+    const done=()=>{b.textContent="コピーしました";setTimeout(()=>b.textContent="文面をコピー",1600)};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="選択しました。コピーしてください"};
+    try{navigator.clipboard.writeText(b.dataset.copy).then(done,fallback)}catch(err){fallback()}
+  });
+  const io=new IntersectionObserver(([en])=>$controls.classList.toggle("stuck",!en.isIntersecting),{threshold:0});
+  const sentinel=document.createElement("div");$controls.before(sentinel);io.observe(sentinel);
+  /* ---- 8. feedback: Googleフォーム ---- */
+  function openFromHash(){
+    const k=(location.hash||"").slice(1);if(!/^q-[0-9a-z]+$/.test(k))return;
+    const it=items.find(x=>x.key===k);if(!it)return;
+    $q.value="";setActive(it.cat);render();
+    const el=document.getElementById(k);if(!el)return;
+    el.open=true;el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200);
+    requestAnimationFrame(()=>el.scrollIntoView({block:"start"}));
+  }
+  render();openFromHash();
+  window.addEventListener("hashchange",openFromHash);
+})();
+</script>
+
+</body>
+</html>
